@@ -1,7 +1,6 @@
 package mino;
 
 import java.awt.Color;
-import java.lang.Math;
 
 public class Peca_Z2 extends Peca{
   
@@ -27,7 +26,6 @@ public class Peca_Z2 extends Peca{
 
   public void updateXY(int direcao){
     Peca_Z2 p = clone();
-
     p.girar(direcao,0);
     if(p.colidindoEsq()){ 
       girar(direcao, Bloco.SIZE);

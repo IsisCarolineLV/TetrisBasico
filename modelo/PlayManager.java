@@ -17,7 +17,7 @@ public class PlayManager {
   private final int WIDTH = 360;
   private final int HEIGHT = 600;
   public static int left_x, right_x, top_y, bottom_y; 
-  public static final int dropInterval = 60; //a cada 60 frames desce a peca
+  public static int dropInterval = 20; //a cada 60 frames desce a peca
   private Peca pecaAtual;
   private Queue<Peca> proximasPecas = new LinkedList<>();
   private Random random = new Random();
@@ -25,6 +25,8 @@ public class PlayManager {
   public static ArrayList<Bloco> blocosCaidos = new ArrayList<>();
   private GamePanel gp;
   public boolean esperandoReiniciar = false;
+  private long tempoInicial = 0;
+  private PointsManager points;
 
   public PlayManager(){
     left_x = (GamePanel.WIDTH/2) - (WIDTH/2);
@@ -43,8 +45,7 @@ public class PlayManager {
   }
 
   public void definirPecasIniciais(){
-    //pecaAtual = sorteiaPeca(random.nextInt(7));
-    pecaAtual = new Peca_Z2();
+    pecaAtual = sorteiaPeca(random.nextInt(7));
     pecaAtual.setXY(PECA_INICIO_X, PECA_INICIO_Y);
     pecaAtual.setPlayManager(this);
 
@@ -53,6 +54,8 @@ public class PlayManager {
       aux.setXY(PECA_INICIO_X, PECA_INICIO_Y+60);
       proximasPecas.add(aux);
     }
+    tempoInicial = System.nanoTime();
+    points = new PointsManager();
   }
 
   public void update(){
@@ -62,6 +65,9 @@ public class PlayManager {
         System.out.println("Reiniciou");
       }
     }else{
+
+      long duracaoDoJogo = System.nanoTime() - tempoInicial;
+      points.setLevel(duracaoDoJogo);
       pecaAtual.update();
       if(!pecaAtual.ativa){
         blocosCaidos.addAll(Arrays.asList(pecaAtual.b));
@@ -111,6 +117,9 @@ public class PlayManager {
       g2d.setFont(new Font("Arial", Font.PLAIN, 20));
       g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
       g2d.drawString("PEÇA SEGUINTE:", x+20, y+30);
+      g2d.drawString("TEMPO : "+(System.nanoTime()-tempoInicial)/1000000.0, x-800, y+30);
+      g2d.drawString("VELOCIDADE : "+dropInterval, x-800, y+60);
+      g2d.drawString("PONTOS : "+points.getTotalPoints(), x-800, y+90);
       if(pecaAtual!=null){
         pecaAtual.draw(g2d);
       }
@@ -149,6 +158,7 @@ public class PlayManager {
 
   public void checkLinhaCompleta(){
     int colunas = WIDTH / Bloco.SIZE;
+    int contMult = 0;
     for (int y = bottom_y - Bloco.SIZE; y >= top_y; y -= Bloco.SIZE) {
       ArrayList<Bloco> linha = new ArrayList<>();
       for (Bloco b : blocosCaidos) {
@@ -166,9 +176,33 @@ public class PlayManager {
                 b.y += Bloco.SIZE;
             }
         }
+        contMult++;
         y += Bloco.SIZE;
       } 
     }
+    points.maisCombo(contMult!=0);
+    points.setMult(tipoDeJogada(contMult));
+    System.out.println(tipoDeJogada(contMult));
+  }
+
+  public String tipoDeJogada(int tipo){
+    String t = "";
+    switch(tipo){
+      case 1: t = "single"; break;
+      case 2: t = "double"; break;
+      case 3: t = "triple"; break;
+      case 4: t = "tetris"; break;
+      default: return "";
+    }
+
+    if(blocosCaidos.size() == 0)
+      t += "+clear";
+
+    return t;
+  }
+
+  public static void setDropInterval(int dropInterval) {
+    PlayManager.dropInterval = dropInterval;
   }
 
 }
