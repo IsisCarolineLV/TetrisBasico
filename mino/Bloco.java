@@ -18,4 +18,13 @@ public class Bloco extends Rectangle{
     int margem = 1;
     g2d.fillRect(x+margem, y+margem, Bloco.SIZE-(margem*2), Bloco.SIZE-(margem*2));
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Bloco)) return false;
+
+    Bloco b = (Bloco) o;
+    return this.x == b.x && this.y == b.y;
+  }
 }

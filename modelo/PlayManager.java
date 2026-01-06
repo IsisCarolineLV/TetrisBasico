@@ -152,26 +152,21 @@ public class PlayManager {
       for (Bloco b : blocosCaidos) {
           if (b.y == y) {
               linha.add(b);
-              System.out.println();
           }
       }
-      System.out.println(linha.size());
       if (linha.size() == colunas) {
         // remove linha
-        for(Bloco b: linha)
-          blocosCaidos.remove(b);
+        blocosCaidos.removeAll(linha);
 
         // desce tudo que esta acima
-        /*for (Bloco b : blocosCaidos) {
+        for (Bloco b : blocosCaidos) {
             if (b.y < y) {
                 b.y += Bloco.SIZE;
             }
         }
         y += Bloco.SIZE;
-        */
       } 
     }
-    System.out.println("\n");
   }
 
 }
