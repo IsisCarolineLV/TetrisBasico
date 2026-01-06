@@ -21,10 +21,18 @@ public class Bloco extends Rectangle{
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Bloco)) return false;
+    if (this == o) return true; //se for essa instancia
+    if (!(o instanceof Bloco)) return false;  //nao eh essa instancia
 
+    //ficou na duvida entao verifica a posicao no grid
     Bloco b = (Bloco) o;
     return this.x == b.x && this.y == b.y;
+  }
+
+  public Bloco clone(){
+    Bloco novo = new Bloco(c);
+    novo.x = this.x;
+    novo.y = this.y;
+    return novo;
   }
 }

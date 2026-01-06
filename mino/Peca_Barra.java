@@ -16,30 +16,20 @@ public class Peca_Barra extends Peca{
     b[0].x = x;
     b[0].y = y;
 
-    b[1].x = b[0].x;
-    b[1].y = b[0].y - Bloco.SIZE;
+    b[1].x = b[0].x - Bloco.SIZE;
+    b[1].y = b[0].y;
 
-    b[2].x = b[0].x;
-    b[2].y = b[0].y + Bloco.SIZE;
+    b[2].x = b[0].x + Bloco.SIZE;
+    b[2].y = b[0].y;
 
-    b[3].x = b[0].x;
-    b[3].y = b[0].y + 2*Bloco.SIZE;
+    b[3].x = b[0].x + 2*Bloco.SIZE;
+    b[3].y = b[0].y;
+    
   }
 
   public void updateXY(int direcao){
     switch (direcao) {
       case 1:
-        b[1].x = b[0].x;
-        b[1].y = b[0].y - Bloco.SIZE;
-
-        b[2].x = b[0].x;
-        b[2].y = b[0].y + Bloco.SIZE;
-
-        b[3].x = b[0].x;
-        b[3].y = b[0].y + 2*Bloco.SIZE;
-        break;
-
-      case 2:
         b[1].x = b[0].x - Bloco.SIZE;
         b[1].y = b[0].y;
 
@@ -50,7 +40,7 @@ public class Peca_Barra extends Peca{
         b[3].y = b[0].y;
         break;
 
-      case 3:
+      case 2:
         b[1].x = b[0].x;
         b[1].y = b[0].y + Bloco.SIZE;
 
@@ -61,7 +51,7 @@ public class Peca_Barra extends Peca{
         b[3].y = b[0].y - 2*Bloco.SIZE;
         break;
 
-      case 4:
+      case 3:
         b[1].x = b[0].x + Bloco.SIZE;
         b[1].y = b[0].y;
 
@@ -70,6 +60,17 @@ public class Peca_Barra extends Peca{
 
         b[3].x = b[0].x - 2*Bloco.SIZE;
         b[3].y = b[0].y;
+        break;
+
+      case 4:
+        b[1].x = b[0].x;
+        b[1].y = b[0].y - Bloco.SIZE;
+
+        b[2].x = b[0].x;
+        b[2].y = b[0].y + Bloco.SIZE;
+
+        b[3].x = b[0].x;
+        b[3].y = b[0].y + 2*Bloco.SIZE;
         break;
     }
   }

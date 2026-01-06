@@ -103,18 +103,21 @@ public abstract class Peca {
 
   public void drawNaFila(Graphics2D g2d, int posicao){
     g2d.setColor(b[0].c);
-    int margem = 1;
     int acressimo_y=0;
+    int acressimo_x = 390;
     if(posicao==0){
-      acressimo_y = 40;
+      acressimo_y = 100;
     }else if(posicao == 1){
-      acressimo_y = 180;
+      acressimo_y = 220;
     }else{
-      acressimo_y = 300;
+      acressimo_y = 340;
     }
-    for(int i=0; i<4; i++){
-      g2d.fillRect(b[i].x+margem+390, b[i].y+margem+acressimo_y, Bloco.SIZE-(margem*2), Bloco.SIZE-(margem*2));
-    }
+    for(Bloco bb: b){
+      Bloco aux = bb.clone();
+      aux.x += acressimo_x;
+      aux.y += acressimo_y;
+      aux.draw(g2d);
+    } 
   }
 
   public boolean colidindoChao(){

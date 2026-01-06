@@ -33,7 +33,7 @@ public class PlayManager {
     bottom_y = top_y + HEIGHT;
 
     PECA_INICIO_X = left_x + (WIDTH/2) - Bloco.SIZE;
-    PECA_INICIO_Y = top_y - 2*Bloco.SIZE;
+    PECA_INICIO_Y = top_y - 3*Bloco.SIZE;
 
     definirPecasIniciais();
   }
@@ -93,11 +93,6 @@ public class PlayManager {
     int x = right_x + 100;
     int y = top_y ;
     g2d.drawRect(x, y, 200, HEIGHT-180);
-    
-    int cont=0;
-    for(Peca p: proximasPecas){
-      p.drawNaFila(g2d, cont++);
-    }
 
     for(Bloco b: blocosCaidos){
       b.draw(g2d);
@@ -110,12 +105,18 @@ public class PlayManager {
       g2d.drawString("GAME OVER",490,345);
       g2d.setFont(new Font("Arial", Font.PLAIN, 30));
       g2d.drawString("pressione enter",540,370);
+      
     }else{
       g2d.setFont(new Font("Arial", Font.PLAIN, 20));
       g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
       g2d.drawString("PEÇA SEGUINTE:", x+20, y+30);
       if(pecaAtual!=null){
         pecaAtual.draw(g2d);
+      }
+
+      int cont=0;
+      for(Peca p: proximasPecas){
+        p.drawNaFila(g2d, cont++);
       }
     }
   }
