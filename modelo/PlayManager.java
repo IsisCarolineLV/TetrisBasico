@@ -43,7 +43,8 @@ public class PlayManager {
   }
 
   public void definirPecasIniciais(){
-    pecaAtual = sorteiaPeca(random.nextInt(7));
+    //pecaAtual = sorteiaPeca(random.nextInt(7));
+    pecaAtual = new Peca_Z2();
     pecaAtual.setXY(PECA_INICIO_X, PECA_INICIO_Y);
     pecaAtual.setPlayManager(this);
 
@@ -105,7 +106,7 @@ public class PlayManager {
       g2d.drawString("GAME OVER",490,345);
       g2d.setFont(new Font("Arial", Font.PLAIN, 30));
       g2d.drawString("pressione enter",540,370);
-      
+
     }else{
       g2d.setFont(new Font("Arial", Font.PLAIN, 20));
       g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

@@ -1,6 +1,7 @@
 package mino;
 
 import java.awt.Color;
+import java.lang.Math;
 
 public class Peca_Z2 extends Peca{
   
@@ -25,51 +26,73 @@ public class Peca_Z2 extends Peca{
   }
 
   public void updateXY(int direcao){
-    switch (direcao) {
-      case 1:
-        b[1].x = b[0].x - Bloco.SIZE;
-        b[1].y = b[0].y;
+    Peca_Z2 p = clone();
 
-        b[2].x = b[0].x;
-        b[2].y = b[0].y + Bloco.SIZE;
-
-        b[3].x = b[0].x + Bloco.SIZE;
-        b[3].y = b[0].y + Bloco.SIZE;
-        break;
-
-      case 2:
-        b[1].x = b[0].x ;
-        b[1].y = b[0].y + Bloco.SIZE;
-
-        b[2].x = b[0].x + Bloco.SIZE;
-        b[2].y = b[0].y;
-
-        b[3].x = b[0].x + Bloco.SIZE;
-        b[3].y = b[0].y - Bloco.SIZE;
-        break;
-
-      case 3:
-        b[1].x = b[0].x + Bloco.SIZE;
-        b[1].y = b[0].y;
-
-        b[2].x = b[0].x;
-        b[2].y = b[0].y - Bloco.SIZE;
-
-        b[3].x = b[0].x - Bloco.SIZE;
-        b[3].y = b[0].y - Bloco.SIZE;
-        break;
-
-      case 4:
-        b[1].x = b[0].x;
-        b[1].y = b[0].y - Bloco.SIZE;
-
-        b[2].x = b[0].x - Bloco.SIZE;
-        b[2].y = b[0].y;
-
-        b[3].x = b[0].x - Bloco.SIZE;
-        b[3].y = b[0].y + Bloco.SIZE;
-        break;
+    p.girar(direcao,0);
+    if(p.colidindoEsq()){ 
+      girar(direcao, Bloco.SIZE);
+    }else if (p.colidindoDir()){ 
+      girar(direcao, -Bloco.SIZE);
+    }else if (p.colidindoBlocosLateral() || p.colidindoChao()){
+      return;
     }
+    girar(direcao, 0);
+  }
+
+  public void girar(int direcao, int desloc){
+    b[0].x +=desloc;
+    switch (direcao) {
+        case 1:
+          b[1].x = b[0].x - Bloco.SIZE;
+          b[1].y = b[0].y;
+
+          b[2].x = b[0].x;
+          b[2].y = b[0].y + Bloco.SIZE;
+
+          b[3].x = b[0].x + Bloco.SIZE;
+          b[3].y = b[0].y + Bloco.SIZE;
+          break;
+
+        case 2:
+          b[1].x = b[0].x;
+          b[1].y = b[0].y + Bloco.SIZE;
+
+          b[2].x = b[0].x + Bloco.SIZE;
+          b[2].y = b[0].y;
+
+          b[3].x = b[0].x + Bloco.SIZE;
+          b[3].y = b[0].y - Bloco.SIZE;
+          break;
+
+        case 3:
+          b[1].x = b[0].x + Bloco.SIZE;
+          b[1].y = b[0].y;
+
+          b[2].x = b[0].x;
+          b[2].y = b[0].y - Bloco.SIZE;
+
+          b[3].x = b[0].x - Bloco.SIZE;
+          b[3].y = b[0].y - Bloco.SIZE;
+          break;
+
+        case 4:
+          b[1].x = b[0].x;
+          b[1].y = b[0].y - Bloco.SIZE;
+
+          b[2].x = b[0].x - Bloco.SIZE;
+          b[2].y = b[0].y;
+
+          b[3].x = b[0].x - Bloco.SIZE;
+          b[3].y = b[0].y + Bloco.SIZE;
+          break;
+      }
+  }
+
+  public Peca_Z2 clone(){
+    Peca_Z2 p = new Peca_Z2();
+    p.setXY(this.b[0].x, this.b[0].y);
+    p.setPlayManager(super.pm);
+    return p;
   }
 
 }

@@ -12,7 +12,7 @@ public abstract class Peca {
   private int contDropador = 0;
   private int direcaoAtual = 0;
   public boolean ativa=true;
-  private PlayManager pm;
+  protected PlayManager pm;
   private int lockDelay = 0;
   private static final int MAX_LOCK_DELAY = 50;
   private int downCooldown=40;

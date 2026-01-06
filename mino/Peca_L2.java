@@ -26,6 +26,21 @@ public class Peca_L2 extends Peca{
   }
 
   public void updateXY(int direcao){
+    Peca_L2 p = clone();
+
+    p.girar(direcao,0);
+    if(p.colidindoEsq()){ 
+      girar(direcao, Bloco.SIZE);
+    }else if (p.colidindoDir()){ 
+      girar(direcao, -Bloco.SIZE);
+    }else if (p.colidindoBlocosLateral() || p.colidindoChao()){
+      return;
+    }
+    girar(direcao, 0);
+  }
+
+  public void girar(int direcao, int desloc){
+    b[0].x +=desloc;
     switch (direcao) {
       case 1:
         b[1].x = b[0].x;
@@ -71,6 +86,13 @@ public class Peca_L2 extends Peca{
         b[3].y = b[0].y - Bloco.SIZE;
         break;
     }
+  }
+
+  public Peca_L2 clone(){
+    Peca_L2 p = new Peca_L2();
+    p.setXY(this.b[0].x, this.b[0].y);
+    p.setPlayManager(super.pm);
+    return p;
   }
 
 }
